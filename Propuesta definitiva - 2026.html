@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta de Servicios - Anderson Betancur</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .whatsapp-float {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const Icon = ({ name, className = "w-6 h-6" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        const WhatsAppIcon = ({ className = "w-6 h-6" }) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.415-8.412z"/>
+            </svg>
+        );
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('riesgos');
+
+            const services = {
+                riesgos: {
+                    title: "Gestión de Riesgos",
+                    icon: "shield-check",
+                    subtitle: "Primera y Segunda Línea de Defensa",
+                    points: [
+                        "Acompañamiento en cargue de riesgos inherentes.",
+                        "Evaluación de efectividad de controles (DAFP).",
+                        "Monitoreo continuo de riesgos con reportes.",
+                        "Enfoque en efectividad del control para auditoría."
+                    ]
+                },
+                indicadores: {
+                    title: "Estrategia e Indicadores",
+                    icon: "bar-chart-3",
+                    subtitle: "Suite Visión Empresarial (SVE)",
+                    points: [
+                        "Implementación de indicadores estratégicos.",
+                        "Diseño de tableros de control en tiempo real.",
+                        "Análisis periódico de comportamiento.",
+                        "Reportería automatizada para alta gerencia."
+                    ]
+                },
+                ia: {
+                    title: "Optimización e IA",
+                    icon: "cpu",
+                    subtitle: "Transformación Tecnológica",
+                    points: [
+                        "Automatización de actividades recurrentes con IA.",
+                        "Diagnóstico de procesos y mejora de eficiencia.",
+                        "Capacitación en transición tecnológica.",
+                        "Reducción de tiempos y mejora operativa."
+                    ]
+                },
+                planes: {
+                    title: "Planes de Acción",
+                    icon: "target",
+                    subtitle: "Seguimiento Estratégico",
+                    points: [
+                        "Formulación de planes con impacto en objetivos.",
+                        "Validación de cumplimiento y desviaciones.",
+                        "Consolidación de información gerencial.",
+                        "Propuesta de medidas correctivas inmediatas."
+                    ]
+                }
+            };
+
+            return (
+                <div className="min-h-screen pb-20 bg-slate-50 relative">
+                    
+                    {/* Botón Flotante WhatsApp */}
+                    <a 
+                        href="https://wa.link/u6dv6x" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="whatsapp-float fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full flex items-center justify-center shadow-2xl"
+                        title="Contactar por WhatsApp"
+                    >
+                        <WhatsAppIcon className="w-8 h-8" />
+                    </a>
+
+                    <header className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white py-16 px-6 shadow-lg">
+                        <div className="max-w-5xl mx-auto">
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                                <div>
+                                    <h1 className="text-4xl font-bold mb-2">Anderson Betancur Duran</h1>
+                                    <p className="text-xl text-blue-100 font-medium">Ingeniero Industrial | Consultor en Gestión de Riesgos e IA</p>
+                                    <div className="flex flex-wrap gap-4 mt-6">
+                                        <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 backdrop-blur-md">
+                                            <Icon name="shield-check" className="w-4 h-4" /> DAFP
+                                        </span>
+                                        <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 backdrop-blur-md">
+                                            <Icon name="database" className="w-4 h-4" /> SVE Expert
+                                        </span>
+                                        <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 backdrop-blur-md">
+                                            <Icon name="zap" className="w-4 h-4" /> IA Automation
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="bg-white/10 p-6 rounded-2xl border border-white/20 text-right hidden md:block backdrop-blur-lg">
+                                    <p className="text-sm text-blue-200">¿Hablamos ahora?</p>
+                                    <a href="https://wa.link/u6dv6x" target="_blank" className="text-lg font-bold flex items-center justify-end gap-2 hover:text-[#25D366] transition-colors">
+                                        WhatsApp <WhatsAppIcon className="w-5 h-5" />
+                                    </a>
+                                    <p className="text-xs mt-1">jandersonbduran@outlook.es</p>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <main className="max-w-5xl mx-auto px-6 -mt-8">
+                        <section className="bg-white rounded-2xl shadow-xl p-8 mb-8 border border-slate-100">
+                            <div className="flex items-start gap-4">
+                                <div className="bg-blue-100 p-3 rounded-xl text-blue-700">
+                                    <Icon name="briefcase" className="w-8 h-8" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold mb-3 text-slate-800">Resumen Ejecutivo</h2>
+                                    <p className="text-slate-600 leading-relaxed">
+                                        Propuesta integral de servicios para fortalecer la gestión administrativa y operativa de entidades públicas. Con trayectoria en <strong>Empocaldas</strong> y experiencia en políticas <strong>DAFP</strong>, ofrezco un portafolio diseñado para optimizar la efectividad de controles e implementar <strong>IA</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="mb-12">
+                            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <Icon name="settings" className="text-blue-600" /> Portafolio de Servicios
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                {Object.entries(services).map(([key, service]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => setActiveTab(key)}
+                                        className={`p-4 rounded-xl text-left transition-all duration-200 border-2 ${
+                                            activeTab === key 
+                                            ? 'bg-blue-600 border-blue-600 text-white shadow-lg scale-105' 
+                                            : 'bg-white border-transparent text-slate-600 hover:border-blue-200 shadow-md'
+                                        }`}
+                                    >
+                                        <div className={`mb-3 ${activeTab === key ? 'text-white' : 'text-blue-600'}`}>
+                                            <Icon name={service.icon} />
+                                        </div>
+                                        <p className="font-bold text-sm uppercase tracking-wider">{service.title}</p>
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="bg-white p-8 rounded-2xl shadow-md border border-slate-100 fade-in">
+                                <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+                                    <div className="flex-1">
+                                        <h3 className="text-2xl font-bold text-slate-800 mb-1">{services[activeTab].title}</h3>
+                                        <p className="text-blue-600 font-medium mb-6">{services[activeTab].subtitle}</p>
+                                        <ul className="space-y-4">
+                                            {services[activeTab].points.map((point, index) => (
+                                                <li key={index} className="flex items-start gap-3 text-slate-600">
+                                                    <Icon name="check-circle-2" className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                                                    <span>{point}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    <div className="w-full md:w-64 bg-slate-50 rounded-xl p-6 border border-slate-200">
+                                        <p className="text-xs font-bold text-slate-400 uppercase mb-4 text-center">Valor Agregado</p>
+                                        <div className="space-y-4">
+                                            <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-blue-500"></div><p className="text-sm font-medium">Metodología DAFP</p></div>
+                                            <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-indigo-500"></div><p className="text-sm font-medium">Automatización IA</p></div>
+                                            <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-green-500"></div><p className="text-sm font-medium">Monitoreo SVE</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Nueva Sección: Metodología de Trabajo */}
+                        <section className="mb-16">
+                            <h2 className="text-3xl font-bold mb-10 text-center text-slate-800">Metodología de Trabajo</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                {[
+                                    { phase: "FASE 1", title: "Diagnóstico", icon: "search", desc: "Evaluación de procesos." },
+                                    { phase: "FASE 2", title: "Diseño", icon: "settings", desc: "Desarrollo a medida." },
+                                    { phase: "FASE 3", title: "Transferencia", icon: "users", desc: "Entrenamiento equipo." },
+                                    { phase: "FASE 4", title: "Mejora", icon: "bar-chart-3", desc: "Seguimiento continuo." }
+                                ].map((item, i) => (
+                                    <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center transition-all hover:shadow-md">
+                                        <div className="bg-blue-50 w-14 h-14 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-6">
+                                            <Icon name={item.icon} className="w-7 h-7" />
+                                        </div>
+                                        <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-2">{item.phase}</p>
+                                        <h4 className="text-xl font-bold text-slate-800 mb-2">{item.title}</h4>
+                                        <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        <footer className="bg-white rounded-3xl p-10 shadow-lg border border-slate-100 text-center">
+                            <h2 className="text-3xl font-bold mb-4 text-slate-800">¿Listo para comenzar?</h2>
+                            <p className="text-slate-600 mb-8 max-w-lg mx-auto">
+                                Agendemos una reunión exploratoria para conocer las necesidades específicas de su entidad.
+                            </p>
+                            
+                            {/* Botón CTA Grande WhatsApp */}
+                            <div className="flex justify-center mb-10">
+                                <a 
+                                    href="https://wa.link/u6dv6x" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-4 px-8 rounded-full flex items-center gap-3 shadow-lg transition-all transform hover:scale-105 active:scale-95"
+                                >
+                                    <WhatsAppIcon className="w-6 h-6" />
+                                    Contactar por WhatsApp
+                                </a>
+                            </div>
+
+                            <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-500 border-t pt-8">
+                                <div className="flex items-center gap-2"><Icon name="phone" className="w-4 h-4" /> 300 420 6205</div>
+                                <div className="flex items-center gap-2"><Icon name="mail" className="w-4 h-4" /> jandersonbduran@outlook.es</div>
+                                <div className="flex items-center gap-2"><Icon name="map-pin" className="w-4 h-4" /> Manizales, Caldas</div>
+                            </div>
+                        </footer>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
