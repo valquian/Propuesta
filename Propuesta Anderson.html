@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta de Servicios - Anderson Betancur</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Mocking Lucide icons for the CDN version
+        const Icon = ({ name, className = "w-6 h-6" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('riesgos');
+
+            const services = {
+                riesgos: {
+                    title: "Gestión de Riesgos",
+                    icon: "shield-check",
+                    subtitle: "Primera y Segunda Línea de Defensa",
+                    points: [
+                        "Acompañamiento en cargue de riesgos inherentes.",
+                        "Evaluación de efectividad de controles (DAFP).",
+                        "Monitoreo continuo y reportes periódicos.",
+                        "Alineación con políticas de gestión del riesgo."
+                    ]
+                },
+                indicadores: {
+                    title: "Estrategia e Indicadores",
+                    icon: "bar-chart-3",
+                    subtitle: "Suite Visión Empresarial (SVE)",
+                    points: [
+                        "Implementación de indicadores estratégicos.",
+                        "Diseño de tableros de control en tiempo real.",
+                        "Análisis de comportamiento y propuestas de mejora.",
+                        "Reportería automatizada para alta gerencia."
+                    ]
+                },
+                ia: {
+                    title: "Optimización e IA",
+                    icon: "cpu",
+                    subtitle: "Transformación Tecnológica",
+                    points: [
+                        "Automatización de actividades recurrentes con IA.",
+                        "Diagnóstico de procesos y mejora de eficiencia.",
+                        "Capacitación en transición tecnológica.",
+                        "Reducción de tiempos y mejora de calidad operativa."
+                    ]
+                },
+                planes: {
+                    title: "Planes de Acción",
+                    icon: "target",
+                    subtitle: "Seguimiento Estratégico",
+                    points: [
+                        "Formulación de planes con impacto en objetivos.",
+                        "Validación de cumplimiento y desviaciones.",
+                        "Consolidación de información gerencial.",
+                        "Propuesta de medidas correctivas inmediatas."
+                    ]
+                }
+            };
+
+            return (
+                <div className="min-h-screen pb-12">
+                    <header className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white py-16 px-6 shadow-lg">
+                        <div className="max-w-5xl mx-auto">
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                                <div>
+                                    <h1 className="text-4xl font-bold mb-2">Anderson Betancur Duran</h1>
+                                    <p className="text-xl text-blue-100 font-medium">Ingeniero Industrial | Consultor en Gestión de Riesgos e IA</p>
+                                    <div className="flex flex-wrap gap-4 mt-6">
+                                        <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20">
+                                            <Icon name="shield-check" className="w-4 h-4" /> DAFP
+                                        </span>
+                                        <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20">
+                                            <Icon name="database" className="w-4 h-4" /> SVE Expert
+                                        </span>
+                                        <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20">
+                                            <Icon name="zap" className="w-4 h-4" /> IA Automation
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="bg-white/10 p-6 rounded-2xl border border-white/20 text-right hidden md:block">
+                                    <p className="text-sm text-blue-200">Contacto Directo</p>
+                                    <p className="text-lg font-semibold">+57 300 420 6205</p>
+                                    <p className="text-sm">jandersonbduran@outlook.es</p>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <main className="max-w-5xl mx-auto px-6 -mt-8">
+                        <section className="bg-white rounded-2xl shadow-xl p-8 mb-8 border border-slate-100">
+                            <div className="flex items-start gap-4">
+                                <div className="bg-blue-100 p-3 rounded-xl text-blue-700">
+                                    <Icon name="briefcase" className="w-8 h-8" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold mb-3 text-slate-800">Resumen Ejecutivo</h2>
+                                    <p className="text-slate-600 leading-relaxed">
+                                        Propuesta integral de servicios para fortalecer la gestión administrativa y operativa de entidades públicas. 
+                                        Con trayectoria en <strong>Empocaldas</strong> y experiencia en políticas <strong>DAFP</strong>, 
+                                        ofrezco un portafolio diseñado para optimizar la efectividad de controles e implementar <strong>IA</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="mb-12">
+                            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <Icon name="settings" className="text-blue-600" /> Portafolio de Servicios
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                {Object.entries(services).map(([key, service]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => setActiveTab(key)}
+                                        className={`p-4 rounded-xl text-left transition-all duration-200 border-2 ${
+                                            activeTab === key 
+                                            ? 'bg-blue-600 border-blue-600 text-white shadow-lg scale-105' 
+                                            : 'bg-white border-transparent text-slate-600 hover:border-blue-200 shadow-md'
+                                        }`}
+                                    >
+                                        <div className={`mb-3 ${activeTab === key ? 'text-white' : 'text-blue-600'}`}>
+                                            <Icon name={service.icon} />
+                                        </div>
+                                        <p className="font-bold text-sm uppercase tracking-wider">{service.title}</p>
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="bg-white p-8 rounded-2xl shadow-md border border-slate-100 fade-in">
+                                <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+                                    <div className="flex-1">
+                                        <h3 className="text-2xl font-bold text-slate-800 mb-1">{services[activeTab].title}</h3>
+                                        <p className="text-blue-600 font-medium mb-6">{services[activeTab].subtitle}</p>
+                                        <ul className="space-y-3">
+                                            {services[activeTab].points.map((point, index) => (
+                                                <li key={index} className="flex items-start gap-3 text-slate-600">
+                                                    <Icon name="check-circle-2" className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                                                    <span>{point}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    <div className="w-full md:w-64 bg-slate-50 rounded-xl p-6 border border-slate-200">
+                                        <p className="text-xs font-bold text-slate-400 uppercase mb-4 text-center">Enfoque Especializado</p>
+                                        <div className="space-y-4">
+                                            <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-blue-500"></div><p className="text-sm font-medium">Metodología DAFP</p></div>
+                                            <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-indigo-500"></div><p className="text-sm font-medium">Experticia SVE</p></div>
+                                            <div className="flex items-center gap-3"><div className="w-2 h-2 rounded-full bg-purple-500"></div><p className="text-sm font-medium">Automatización IA</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="mb-12">
+                            <h2 className="text-2xl font-bold mb-8 text-center">Metodología de Trabajo</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                {[
+                                    { phase: "Fase 1", title: "Diagnóstico", icon: "search", desc: "Evaluación de procesos." },
+                                    { phase: "Fase 2", title: "Diseño", icon: "settings", desc: "Desarrollo a medida." },
+                                    { phase: "Fase 3", title: "Transferencia", icon: "users", desc: "Entrenamiento equipo." },
+                                    { phase: "Fase 4", title: "Mejora", icon: "bar-chart-3", desc: "Seguimiento continuo." }
+                                ].map((item, i) => (
+                                    <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center">
+                                        <div className="bg-blue-50 w-12 h-12 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-4">
+                                            <Icon name={item.icon} />
+                                        </div>
+                                        <p className="text-xs font-bold text-blue-500 uppercase mb-1">{item.phase}</p>
+                                        <h4 className="font-bold text-slate-800 mb-1">{item.title}</h4>
+                                        <p className="text-xs text-slate-500">{item.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        <footer className="bg-white rounded-3xl p-10 shadow-lg border border-slate-100 text-center">
+                            <h2 className="text-3xl font-bold mb-4 text-slate-800">¿Listo para comenzar?</h2>
+                            <p className="text-slate-600 mb-8 max-w-lg mx-auto">
+                                Agendemos una reunión exploratoria para conocer las necesidades de su entidad.
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-8 text-sm">
+                                <div className="flex items-center gap-2"><Icon name="phone" className="text-blue-600 w-4 h-4" /> 300 420 6205</div>
+                                <div className="flex items-center gap-2"><Icon name="mail" className="text-blue-600 w-4 h-4" /> jandersonbduran@outlook.es</div>
+                                <div className="flex items-center gap-2"><Icon name="map-pin" className="text-blue-600 w-4 h-4" /> Manizales, Caldas</div>
+                            </div>
+                        </footer>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
