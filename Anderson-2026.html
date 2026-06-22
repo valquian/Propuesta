@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta de Servicios – Anderson Betancur Duran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy:   #163A6B;
+            --cobalt: #2E6BB8;
+            --sky:    #4A9FE0;
+            --mint:   #00B897;
+            --slate:  #F0F4FA;
+            --ink:    #1C2B3A;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--slate); color: var(--ink); scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+        html { overflow-x: hidden; }
+        h1,h2,h3,h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Hero */
+        .hero-bg {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--cobalt) 60%, var(--sky) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(45,125,210,.25) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; left: 30%;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,184,151,.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .wa-text-link:hover, .wa-text-link:focus { color: #25D366 !important; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.22);
+            backdrop-filter: blur(8px);
+            padding: 5px 14px; border-radius: 999px;
+            font-size: .78rem; font-weight: 500; color: #e0eaff;
+        }
+
+        /* Card base */
+        .card { background: #fff; border-radius: 20px; border: 1px solid #e4eaf3; box-shadow: 0 2px 16px rgba(15,34,64,.07); }
+
+        /* Service tabs */
+        .tab-btn {
+            padding: 18px 20px; border-radius: 16px; border: 2px solid transparent;
+            background: #fff; cursor: pointer; text-align: left;
+            transition: all .2s ease; box-shadow: 0 2px 10px rgba(15,34,64,.07);
+        }
+        .tab-btn:hover { border-color: #bdd4f5; }
+        .tab-btn.active {
+            background: var(--cobalt); border-color: var(--cobalt);
+            color: #fff; box-shadow: 0 6px 22px rgba(26,74,138,.35);
+            transform: translateY(-2px);
+        }
+        .tab-btn .icon-wrap { margin-bottom: 10px; }
+        .tab-btn.active .icon-wrap { color: #fff !important; }
+
+        /* Mint accent line */
+        .accent-line { width: 40px; height: 4px; background: var(--mint); border-radius: 2px; margin: 10px 0 18px; }
+
+        /* Differentiator dots */
+        .diff-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+
+        /* Phase cards */
+        .phase-card {
+            background: #fff; border-radius: 20px; border: 1px solid #e4eaf3;
+            padding: 32px 24px; text-align: center;
+            transition: box-shadow .2s, transform .2s;
+            display: flex; flex-direction: column; align-items: center;
+            height: 100%;
+        }
+        .phase-card p { margin-top: auto; }
+        .phase-card:hover { box-shadow: 0 8px 28px rgba(15,34,64,.12); transform: translateY(-3px); }
+        .phase-num {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.4rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--cobalt), var(--sky));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        /* Why me section */
+        .stat-card {
+            background: #fff; border-radius: 16px; border: 1px solid #e4eaf3;
+            padding: 24px; display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .stat-num {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.2rem; font-weight: 800; color: var(--cobalt); line-height: 1;
+        }
+
+        /* Footer CTA */
+        .cta-bg {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--cobalt) 100%);
+            border-radius: 24px;
+        }
+        .btn-whatsapp {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: #25D366; color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700; font-size: 1rem;
+            padding: 14px 32px; border-radius: 999px;
+            box-shadow: 0 4px 20px rgba(37,211,102,.4);
+            transition: all .25s; text-decoration: none;
+        }
+        .btn-whatsapp:hover { background: #128C7E; transform: scale(1.05); box-shadow: 0 6px 24px rgba(37,211,102,.5); }
+
+        /* WhatsApp float */
+        .wa-float {
+            position: fixed; bottom: 28px; right: 28px; z-index: 50;
+            background: #25D366; color: #fff;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 18px rgba(37,211,102,.45);
+            transition: all .3s; text-decoration: none;
+        }
+        .wa-float:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 6px 24px rgba(37,211,102,.6); }
+
+        /* Fade-in */
+        .fade { animation: fadeUp .35s ease-out; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+        /* Section labels */
+        .section-eyebrow {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+            text-transform: uppercase; color: var(--mint);
+        }
+
+        /* Documental highlight */
+        .doc-highlight {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f8f4 100%);
+            border: 1.5px solid #bde0f8; border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.link/u6dv6x" target="_blank" rel="noopener noreferrer" class="wa-float" title="Contactar por WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.415-8.412z"/></svg>
+    </a>
+
+    <!-- HERO -->
+    <header class="hero-bg text-white pt-14 pb-28 px-6">
+        <div class="max-w-5xl mx-auto relative" style="z-index:1;">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-8 relative z-10">
+                <div>
+                    <p class="section-eyebrow mb-3" style="color:#7ecfff;">Consultoría para el Sector Público</p>
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-2">Anderson Betancur Duran</h1>
+                    <p class="text-lg text-blue-200 font-medium mb-6">Ingeniero Industrial · Indicadores Estratégicos · IA Aplicada</p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="badge"><i data-lucide="bar-chart-3" style="width:14px;height:14px;"></i> MIPG · SVE</span>
+                        <span class="badge"><i data-lucide="database" style="width:14px;height:14px;"></i> SVE Avanzado Certificado</span>
+                        <span class="badge"><i data-lucide="cpu" style="width:14px;height:14px;"></i> IA Aplicada</span>
+                        <span class="badge"><i data-lucide="file-text" style="width:14px;height:14px;"></i> AGN · TRD / TVD</span>
+                    </div>
+                </div>
+                <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(12px);border-radius:20px;padding:24px;min-width:220px;" class="hidden md:block">
+                    <p style="font-size:.78rem;color:#aac8f0;margin-bottom:4px;">Agendemos una reunión</p>
+                    <a href="https://wa.link/u6dv6x" target="_blank" class="wa-text-link" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:#ffffff;display:flex;align-items:center;gap:8px;text-decoration:none;transition:color .2s;">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.415-8.412z"/></svg>
+                        WhatsApp
+                    </a>
+                    <p style="font-size:.73rem;color:#aac8f0;margin-top:8px;">jandersonbduran@outlook.es</p>
+                    <p style="font-size:.73rem;color:#aac8f0;">300 420 6205 · Manizales, Caldas</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 -mt-12 pb-20 relative" style="z-index:2;">
+
+        <!-- RESUMEN EJECUTIVO -->
+        <section class="card p-8 mb-8">
+            <div class="flex items-start gap-5">
+                <div style="background:#e8f0fe;border-radius:14px;padding:14px;color:var(--cobalt);flex-shrink:0;">
+                    <i data-lucide="briefcase" style="width:28px;height:28px;"></i>
+                </div>
+                <div>
+                    <p class="section-eyebrow mb-1">Resumen ejecutivo</p>
+                    <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:12px;color:var(--navy);">Gestión pública que se mide, se gestiona y mejora.</h2>
+                    <div class="accent-line"></div>
+                    <p style="color:#3d5170;line-height:1.75;max-width:680px;">
+                        Propuesta integral de servicios para fortalecer la gestión administrativa y operativa de entidades públicas. Con trayectoria comprobada en <strong>Empocaldas S.A. E.S.P.</strong> y dominio aplicado del <strong>Modelo Integrado de Planeación y Gestión (MIPG)</strong>, ofrezco un portafolio diseñado para optimizar la medición de procesos, la gestión de la información y la formulación de planes de acción alineados al plan estratégico institucional — potenciados con <strong>Inteligencia Artificial</strong> para reducir tiempos de reporte y elevar la calidad de la toma de decisiones gerenciales.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ¿POR QUÉ YO? — sección de credibilidad -->
+        <section class="mb-8">
+            <p class="section-eyebrow mb-2">Trayectoria verificable</p>
+            <h2 style="font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:20px;">¿Por qué elegir este acompañamiento?</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="stat-card">
+                    <span class="stat-num">+1</span>
+                    <span style="font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6b87ae;margin-top:6px;margin-bottom:4px;">Año</span>
+                    <span style="font-size:.82rem;color:#4a6380;text-align:center;">Experiencia en entidad pública aplicando el Modelo Integrado de Planeación y Gestión (MIPG)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num">SVE</span>
+                    <span style="font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6b87ae;margin-top:6px;margin-bottom:4px;">Certificado</span>
+                    <span style="font-size:.82rem;color:#4a6380;text-align:center;">Administración Funcional Avanzada de la plataforma Suite Visión Empresarial</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num">PAI</span>
+                    <span style="font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6b87ae;margin-top:6px;margin-bottom:4px;">Formulación</span>
+                    <span style="font-size:.82rem;color:#4a6380;text-align:center;">Planes de acción formulados y monitoreados desde el direccionamiento estratégico</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num">IA</span>
+                    <span style="font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6b87ae;margin-top:6px;margin-bottom:4px;">Implementada</span>
+                    <span style="font-size:.82rem;color:#4a6380;text-align:center;">Dashboards, reportes automáticos y sistematización de información desplegados en producción</span>
+                </div>
+            </div>
+            <!-- Diferenciador narrativo -->
+            <div style="background:linear-gradient(135deg,#eef5ff,#e6f8f4);border:1.5px solid #c3daff;border-radius:16px;padding:22px 26px;display:flex;align-items:flex-start;gap:14px;">
+                <i data-lucide="star" style="width:22px;height:22px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                <p style="color:#2d4a6e;font-size:.92rem;line-height:1.7;margin:0;">
+                    <strong>Diferenciador clave:</strong> No sólo conozco la metodología — la he operado en una entidad pública real. Tengo casos de uso construidos (dashboards de indicadores, sistematización de informes con IA, consolidación de planes de acción) que puedo mostrar y adaptar a su organización desde el primer día.
+                </p>
+            </div>
+        </section>
+
+        <!-- PORTAFOLIO DE SERVICIOS -->
+        <section class="mb-8">
+            <p class="section-eyebrow mb-2">Lo que ofrezco</p>
+            <h2 style="font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:20px;">Portafolio de Servicios</h2>
+
+            <!-- Tabs -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                <button id="tab-btn-indicadores" onclick="switchTab('indicadores')" class="tab-btn active">
+                    <div class="icon-wrap" style="color:var(--cobalt);"><i data-lucide="bar-chart-3" style="width:20px;height:20px;"></i></div>
+                    <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">Estrategia e Indicadores</p>
+                </button>
+                <button id="tab-btn-planes" onclick="switchTab('planes')" class="tab-btn">
+                    <div class="icon-wrap" style="color:var(--cobalt);"><i data-lucide="target" style="width:20px;height:20px;"></i></div>
+                    <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">Planes de Acción</p>
+                </button>
+                <button id="tab-btn-documental" onclick="switchTab('documental')" class="tab-btn">
+                    <div class="icon-wrap" style="color:var(--cobalt);"><i data-lucide="archive" style="width:20px;height:20px;"></i></div>
+                    <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">Gestión Documental</p>
+                </button>
+                <button id="tab-btn-ia" onclick="switchTab('ia')" class="tab-btn">
+                    <div class="icon-wrap" style="color:var(--cobalt);"><i data-lucide="cpu" style="width:20px;height:20px;"></i></div>
+                    <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">Optimización e IA</p>
+                </button>
+            </div>
+
+            <!-- Contenidos -->
+            <div class="card p-8">
+
+                <!-- INDICADORES -->
+                <div id="content-indicadores" class="tab-content fade">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="flex-1">
+                            <h3 style="font-size:1.5rem;font-weight:800;color:var(--navy);margin-bottom:4px;">Estrategia e Indicadores</h3>
+                            <p style="color:var(--cobalt);font-weight:600;margin-bottom:6px;">Suite Visión Empresarial (SVE) · Certificación Avanzada</p>
+                            <div class="accent-line"></div>
+                            <ul style="display:flex;flex-direction:column;gap:14px;">
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Configuración completa de la plataforma SVE: carga de indicadores, metas, frecuencias y responsables.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Diseño de tableros de control interactivos (dashboards HTML) para seguimiento en comité de gerencia.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Análisis periódico de comportamiento de indicadores con identificación de desviaciones y alertas tempranas.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Generación automática de reportes para alta gerencia con semáforos y análisis de causa-efecto.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="width:100%;max-width:220px;background:#f7f9fd;border-radius:16px;padding:22px;border:1px solid #dce6f5;flex-shrink:0;">
+                            <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8aaccc;margin-bottom:16px;text-align:center;">Valor diferencial</p>
+                            <div style="display:flex;flex-direction:column;gap:12px;">
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:var(--cobalt);"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Certificado SVE Avanzado</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:var(--mint);"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Dashboards interactivos reales</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:#f59e0b;"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Sistema semáforo de alertas</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:#7c3aed;"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Alineado a MIPG / FURAG</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IA -->
+                <div id="content-ia" class="tab-content fade hidden">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="flex-1">
+                            <h3 style="font-size:1.5rem;font-weight:800;color:var(--navy);margin-bottom:4px;">Optimización e Inteligencia Artificial</h3>
+                            <p style="color:var(--cobalt);font-weight:600;margin-bottom:6px;">Automatización con Claude · Gemini · Cowork</p>
+                            <div class="accent-line"></div>
+                            <ul style="display:flex;flex-direction:column;gap:14px;">
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Automatización de informes periódicos de indicadores y planes de acción con IA (Claude / Cowork), reduciendo tiempos de consolidación.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Construcción de dashboards interactivos de indicadores estratégicos en HTML para comités de gerencia.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Diagnóstico de procesos para identificar actividades automatizables y propuesta de flujo optimizado.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Capacitación al equipo en uso de IA para tareas administrativas, con casos prácticos del sector público.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="width:100%;max-width:220px;background:#f7f9fd;border-radius:16px;padding:22px;border:1px solid #dce6f5;flex-shrink:0;">
+                            <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8aaccc;margin-bottom:16px;text-align:center;">Valor diferencial</p>
+                            <div style="display:flex;flex-direction:column;gap:12px;">
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:var(--cobalt);"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Casos de uso reales en entidad pública</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:var(--mint);"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Entregables listos para usar</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:#f59e0b;"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Ahorro real de tiempo de reporte</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:#7c3aed;"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Capacitación incluida</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PLANES -->
+                <div id="content-planes" class="tab-content fade hidden">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="flex-1">
+                            <h3 style="font-size:1.5rem;font-weight:800;color:var(--navy);margin-bottom:4px;">Planes de Acción Institucional (PAI)</h3>
+                            <p style="color:var(--cobalt);font-weight:600;margin-bottom:6px;">Formulación · Seguimiento · Consolidación trimestral</p>
+                            <div class="accent-line"></div>
+                            <ul style="display:flex;flex-direction:column;gap:14px;">
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Formulación de planes de acción alineados al direccionamiento estratégico institucional y objetivos de política pública.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Seguimiento trimestral con validación de cumplimiento, análisis de desviaciones y propuesta de acciones correctivas.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Consolidación de información para informe gerencial, incluyendo avance físico y financiero por proceso.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Generación automática del reporte PAI con IA para presentación ante comités directivos.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="width:100%;max-width:220px;background:#f7f9fd;border-radius:16px;padding:22px;border:1px solid #dce6f5;flex-shrink:0;">
+                            <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8aaccc;margin-bottom:16px;text-align:center;">Valor diferencial</p>
+                            <div style="display:flex;flex-direction:column;gap:12px;">
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:var(--cobalt);"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Formulado y ejecutado en entidad real</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:var(--mint);"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Consolidación con IA</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:#f59e0b;"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Alineado a MIPG</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:#7c3aed;"></div>
+                                    <p style="font-size:.85rem;font-weight:600;color:var(--ink);">Reportes listos para gerencia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GESTIÓN DOCUMENTAL -->
+                <div id="content-documental" class="tab-content fade hidden">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="flex-1">
+                            <h3 style="font-size:1.5rem;font-weight:800;color:var(--navy);margin-bottom:4px;">Gestión Documental</h3>
+                            <p style="color:var(--cobalt);font-weight:600;margin-bottom:6px;">TRD · TVD · AGN · Impacto FURAG</p>
+                            <div class="accent-line"></div>
+                            <ul style="display:flex;flex-direction:column;gap:14px;">
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Elaboración de Tablas de Retención Documental (TRD) alineadas a la normativa del Archivo General de la Nación (AGN) y Ley 594 de 2000.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Construcción de Tablas de Valoración Documental (TVD) para la organización y disposición del acervo documental acumulado.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Impacto directo en el componente de Gestión Documental del FURAG, mejorando el índice de desempeño institucional.</span>
+                                </li>
+                                <li style="display:flex;align-items:flex-start;gap:12px;color:#3d5170;font-size:.93rem;">
+                                    <i data-lucide="check-circle-2" style="width:18px;height:18px;color:var(--mint);flex-shrink:0;margin-top:2px;"></i>
+                                    <span>Trazabilidad de la información institucional: disposición final, conservación, eliminación o digitalización de series documentales.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="width:100%;max-width:220px;background:#f0f8f5;border-radius:16px;padding:22px;border:1px solid #b8e8d8;flex-shrink:0;">
+                            <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#4a9e80;margin-bottom:16px;text-align:center;">Por qué es urgente</p>
+                            <div style="display:flex;flex-direction:column;gap:12px;">
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:#e53e3e;margin-top:5px;"></div>
+                                    <p style="font-size:.82rem;color:#2d4a3a;"><strong>Obligatorio</strong> para todas las entidades públicas según AGN</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:#f59e0b;margin-top:5px;"></div>
+                                    <p style="font-size:.82rem;color:#2d4a3a;">Mejora el puntaje FURAG en Transparencia y Gestión</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:var(--mint);margin-top:5px;"></div>
+                                    <p style="font-size:.82rem;color:#2d4a3a;">Reduce hallazgos y sanciones de Control Interno Disciplinario</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:10px;">
+                                    <div class="diff-dot" style="background:var(--cobalt);margin-top:5px;"></div>
+                                    <p style="font-size:.82rem;color:#2d4a3a;">Protege la memoria institucional y facilita la rendición de cuentas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Nota normativa destacada -->
+                    <div style="margin-top:20px;background:#fff8e1;border:1.5px solid #fde68a;border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:10px;">
+                        <i data-lucide="alert-triangle" style="width:18px;height:18px;color:#d97706;flex-shrink:0;margin-top:1px;"></i>
+                        <p style="font-size:.85rem;color:#92400e;margin:0;"><strong>Marco normativo:</strong> La implementación de TRD y TVD es de cumplimiento obligatorio para todas las entidades del Estado colombiano (Ley 594/2000, Decreto 1080/2015, Acuerdo AGN 004/2019). Su incumplimiento es causal de sanción disciplinaria y afecta directamente el componente de Gestión Documental en el FURAG.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- METODOLOGÍA -->
+        <section class="mb-8">
+            <p class="section-eyebrow mb-2">Cómo trabajo</p>
+            <h2 style="font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:20px;">Metodología de Trabajo</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="phase-card">
+                    <div class="phase-num">01</div>
+                    <div style="width:32px;height:3px;background:var(--mint);border-radius:2px;margin:10px auto 14px;"></div>
+                    <h4 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px;min-height:24px;">Diagnóstico</h4>
+                    <p style="font-size:.83rem;color:#5a748e;line-height:1.55;">Revisión del estado actual de procesos, herramientas y brechas frente al MIPG.</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-num">02</div>
+                    <div style="width:32px;height:3px;background:var(--mint);border-radius:2px;margin:10px auto 14px;"></div>
+                    <h4 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px;min-height:24px;">Diseño</h4>
+                    <p style="font-size:.83rem;color:#5a748e;line-height:1.55;">Propuesta a medida: estructura de indicadores, tableros de seguimiento, plantillas, flujos de automatización.</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-num">03</div>
+                    <div style="width:32px;height:3px;background:var(--mint);border-radius:2px;margin:10px auto 14px;"></div>
+                    <h4 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px;min-height:24px;">Implementación</h4>
+                    <p style="font-size:.83rem;color:#5a748e;line-height:1.55;">Cargue, configuración y despliegue de herramientas con acompañamiento directo al equipo.</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-num">04</div>
+                    <div style="width:32px;height:3px;background:var(--mint);border-radius:2px;margin:10px auto 14px;"></div>
+                    <h4 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px;min-height:24px;">Seguimiento</h4>
+                    <p style="font-size:.83rem;color:#5a748e;line-height:1.55;">Revisión periódica, mejora continua y entregables listos para cada ciclo de reporte institucional.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FOOTER -->
+        <footer class="cta-bg p-10 text-white text-center mb-4">
+            <p class="section-eyebrow mb-3" style="color:#7ecfff;">¿Listo para mejorar su gestión institucional?</p>
+            <h2 style="font-size:2rem;font-weight:800;margin-bottom:12px;">Agendemos una reunión exploratoria</h2>
+            <p style="color:#b8d0f0;max-width:480px;margin:0 auto 32px;font-size:.95rem;line-height:1.65;">Sin costo, sin compromiso. Revisamos las necesidades específicas de su entidad y le muestro casos reales de lo que ya está funcionando en otra entidad pública.</p>
+            <a href="https://wa.link/u6dv6x" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.415-8.412z"/></svg>
+                Contactar por WhatsApp
+            </a>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.15);font-size:.82rem;color:#a8c4e0;">
+                <span style="display:flex;align-items:center;gap:7px;"><i data-lucide="phone" style="width:14px;height:14px;"></i> 300 420 6205</span>
+                <span style="display:flex;align-items:center;gap:7px;"><i data-lucide="mail" style="width:14px;height:14px;"></i> jandersonbduran@outlook.es</span>
+                <span style="display:flex;align-items:center;gap:7px;"><i data-lucide="map-pin" style="width:14px;height:14px;"></i> Manizales, Caldas</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+
+        const TAB_IDS = ['indicadores','planes','documental','ia'];
+
+        function switchTab(tabId) {
+            // Ocultar todos los contenidos
+            TAB_IDS.forEach(id => {
+                const c = document.getElementById('content-' + id);
+                if (c) c.classList.add('hidden');
+                const b = document.getElementById('tab-btn-' + id);
+                if (b) {
+                    b.classList.remove('active');
+                    const icon = b.querySelector('.icon-wrap');
+                    if (icon) icon.style.color = 'var(--cobalt)';
+                }
+            });
+
+            // Activar el seleccionado
+            const activeContent = document.getElementById('content-' + tabId);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+                // Re-trigger animation
+                activeContent.classList.remove('fade');
+                void activeContent.offsetWidth;
+                activeContent.classList.add('fade');
+            }
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                const icon = activeBtn.querySelector('.icon-wrap');
+                if (icon) icon.style.color = '#fff';
+            }
+        }
+    </script>
+</body>
+</html>
